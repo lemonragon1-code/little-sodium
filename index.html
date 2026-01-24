@@ -5,83 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gửi cậu...</title>
     <style>
-        body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; overflow-x: hidden; }
-        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: 0.8s; }
-        button#start-btn { padding: 18px 40px; font-size: 1.2em; background-color: #ff4d4d; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); transition: transform 0.2s; }
-        button#start-btn:active { transform: scale(0.95); }
+        body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Times New Roman', serif; margin: 0; overflow-x: hidden; }
         
-        .content { opacity: 0; transition: 2s; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        h1 { margin-top: 40px; font-size: 2.2em; color: #d4af37; }
-        img { width: 95%; max-width: 500px; border: 3px solid #d4af37; border-radius: 15px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        /* Màn hình chờ tối giản */
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: 1s; }
+        button#start-btn { padding: 12px 30px; font-size: 1rem; background: none; color: #d4af37; border: 1px solid #d4af37; border-radius: 2px; cursor: pointer; transition: 0.5s; letter-spacing: 2px; }
+        button#start-btn:hover { background: #d4af37; color: #1a1a1a; }
         
-        /* Chữ tự động điều chỉnh linh hoạt */
+        /* Nội dung chính */
+        .content { opacity: 0; transition: 2.5s; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        h1 { font-weight: lighter; letter-spacing: 5px; color: #d4af37; margin-bottom: 30px; font-size: 1.8rem; }
+        
+        img { width: 100%; max-width: 550px; border-radius: 2px; filter: sepia(20%); box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 30px; }
+        
+        /* Lời nhắn: Giữ nét thanh mảnh của máy tính */
         p { 
             font-style: italic; 
-            line-height: 1.8; 
-            margin-top: 30px; 
-            font-size: 1.25rem; 
-            color: #f0f0f0; 
-            max-width: 700px; 
-            padding: 0 15px;
+            line-height: 2; 
+            font-size: 1.1rem; 
+            color: #ccc; 
+            max-width: 600px; 
+            margin: 0 auto;
         }
 
+        /* Nút đặc biệt: Tinh tế hơn */
         .confess-btn { 
-            margin: 40px 0 60px; 
-            padding: 12px 30px; 
+            margin-top: 50px; 
+            padding: 10px 20px; 
             background: none; 
-            border: 2px solid #d4af37; 
+            border: none; 
+            border-bottom: 1px solid #d4af37; 
             color: #d4af37; 
-            border-radius: 8px; 
             cursor: pointer; 
-            font-size: 1.1em; 
-            font-weight: bold; 
-            transition: all 0.3s; 
+            font-size: 0.9rem; 
+            letter-spacing: 3px;
+            transition: 0.4s; 
+            opacity: 0.7;
         }
-        .confess-btn:hover { background: #d4af37; color: #1a1a1a; box-shadow: 0 0 15px #d4af37; }
+        .confess-btn:hover { opacity: 1; letter-spacing: 5px; }
 
-        /* Tinh chỉnh riêng cho di động để chữ không bị nhỏ */
+        /* Chỉ chỉnh một chút cho mobile để không bị quá bé */
         @media (max-width: 600px) {
-            h1 { font-size: 1.7em; }
-            p { font-size: 1.2em; line-height: 1.6; }
-            .confess-btn { width: 80%; padding: 15px; }
+            p { font-size: 1.05rem; width: 90%; }
+            h1 { font-size: 1.4rem; letter-spacing: 3px; }
         }
     </style>
 </head>
 <body>
     <div id="overlay">
-        <p style="margin-bottom: 25px; font-size: 1.1em;">Tớ có một thứ dành cho cậu...</p>
-        <button id="start-btn" onclick="startEverything()">Mở món quà 🎁</button>
+        <button id="start-btn" onclick="startEverything()">MỞ MÓN QUÀ</button>
     </div>
 
     <div class="content" id="main-content">
-        <h1>Khoảnh khắc từ ban công...</h1>
+        <h1>KHOẢNH KHẮC</h1>
         <img src="trường phái ấn tượng. jpg.png" alt="Hoàng hôn">
-        <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br><br>
+        <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
            Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
         
-        <button class="confess-btn" onclick="showConfession()">bấm nếu bạn đã sẵn sàng</button>
+        <button class="confess-btn" onclick="showConfession()">BẤM VÀO ĐÂY</button>
     </div>
 
-    <audio id="myAudio">
-        <source src="nhac.mp4.m4a" type="audio/mp4">
-    </audio>
+    <audio id="myAudio"><source src="nhac.mp4.m4a" type="audio/mp4"></audio>
 
     <script>
         function startEverything() {
-            var audio = document.getElementById("myAudio");
-            audio.play().catch(e => console.log("Lỗi nhạc:", e));
+            document.getElementById("myAudio").play();
             document.getElementById("overlay").style.opacity = "0";
             setTimeout(() => { 
                 document.getElementById("overlay").style.display = "none";
                 document.getElementById("main-content").style.opacity = "1";
                 document.body.style.overflow = "auto";
-            }, 800);
+            }, 1000);
         }
-
         function showConfession() {
-            alert("Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. Mình cũng có, bạn lại làm cô ta của mình nhé?");
+            alert("Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. Có thể lại làm cô ta của ảnh được không?");
         }
     </script>
 </body>
 </html>
+
 
