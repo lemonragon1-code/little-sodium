@@ -1,25 +1,50 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8">
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>little sodium</title>
     <style>
-        body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Times New Roman', Times, serif; }
+        body { 
+            background-color: #1a1a1a; 
+            color: white; 
+            text-align: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px;
+        }
         .fade-in { animation: fadeIn 3s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        img { width: 80%; border: 5px solid #d4af37; margin-top: 50px; border-radius: 10px; }
-        p { font-style: italic; font-size: 1.2em; padding: 20px; }
+        img { 
+            width: 80%; 
+            max-width: 600px;
+            border: 5px solid #d4af37; 
+            margin-top: 50px; 
+            border-radius: 10px; 
+        }
+        p { 
+            font-style: italic; 
+            font-size: 1.2em; 
+            padding: 20px; 
+            line-height: 1.6;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="fade-in">
         <h1>Khoảnh khắc từ ban công...</h1>
-        <img src="trường phái ấn tượng. jpg.png" alt="Tranh Ấn Tượng">
+        <img src="image_657e2c.jpg" alt="Tranh Ấn Tượng">
         <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
-           Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
-        <button onclick="alert('Cho mình một cơ hội để nói chuyện lại nhé?')">Nhấn vào đây</button>
+        Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
+        <button onclick="alert('Cảm ơn cậu đã xem!')">Nhấn vào đây</button>
     </div>
 </body>
-
 </html>
-
-
