@@ -7,53 +7,45 @@
     <style>
         body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Times New Roman', serif; margin: 0; overflow-x: hidden; }
         
-        /* Màn hình chờ tối giản */
-        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: 1s; }
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; transition: 1s; }
         button#start-btn { padding: 12px 30px; font-size: 1rem; background: none; color: #d4af37; border: 1px solid #d4af37; border-radius: 2px; cursor: pointer; transition: 0.5s; letter-spacing: 2px; }
         button#start-btn:hover { background: #d4af37; color: #1a1a1a; }
         
-        /* Nội dung chính */
         .content { opacity: 0; transition: 2.5s; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         h1 { font-weight: lighter; letter-spacing: 5px; color: #d4af37; margin-bottom: 30px; font-size: 1.8rem; }
-        
-        img { width: 100%; max-width: 550px; border-radius: 2px; filter: sepia(20%); box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 30px; }
-        
-        /* Lời nhắn: Giữ nét thanh mảnh của máy tính */
-        p { 
-            font-style: italic; 
-            line-height: 2; 
-            font-size: 1.1rem; 
-            color: #ccc; 
-            max-width: 600px; 
-            margin: 0 auto;
-        }
+        img { width: 100%; max-width: 550px; border-radius: 2px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 30px; border: 1px solid #333; }
+        p { font-style: italic; line-height: 2; font-size: 1.1rem; color: #ccc; max-width: 600px; margin: 0 auto; }
 
-        /* Nút đặc biệt: Tinh tế hơn */
-        .confess-btn { 
-            margin-top: 50px; 
-            padding: 10px 20px; 
-            background: none; 
-            border: none; 
-            border-bottom: 1px solid #d4af37; 
-            color: #d4af37; 
-            cursor: pointer; 
-            font-size: 0.9rem; 
-            letter-spacing: 3px;
-            transition: 0.4s; 
-            opacity: 0.7;
-        }
-        .confess-btn:hover { opacity: 1; letter-spacing: 5px; }
+        .confess-btn { margin-top: 50px; padding: 10px 25px; background: #d4af37; color: #1a1a1a; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; letter-spacing: 1px; transition: 0.4s; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .confess-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5); }
 
-        /* Chỉ chỉnh một chút cho mobile để không bị quá bé */
-        @media (max-width: 600px) {
-            p { font-size: 1.05rem; width: 90%; }
-            h1 { font-size: 1.4rem; letter-spacing: 3px; }
+        /* KHUNG TIN NHẮN ĐẶC BIỆT */
+        #custom-popup {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 85%; max-width: 400px; background: rgba(30, 30, 30, 0.95);
+            border: 1px solid #d4af37; padding: 30px; z-index: 2000;
+            border-radius: 15px; box-shadow: 0 0 50px rgba(0,0,0,1);
+            backdrop-filter: blur(10px); text-align: center;
         }
+        #custom-popup p { color: #f0f0f0; font-size: 1.15rem; margin-bottom: 25px; font-style: normal; }
+        #custom-popup button {
+            background: none; border: 1px solid #d4af37; color: #d4af37;
+            padding: 8px 25px; cursor: pointer; border-radius: 5px; font-size: 0.9rem;
+        }
+        #custom-popup button:hover { background: #d4af37; color: #1a1a1a; }
+        #popup-blur { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1500; }
     </style>
 </head>
 <body>
+
     <div id="overlay">
         <button id="start-btn" onclick="startEverything()">MỞ MÓN QUÀ</button>
+    </div>
+
+    <div id="popup-blur"></div>
+    <div id="custom-popup">
+        <p>Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. <br><br> Có thể lại làm cô ta của ảnh được không?</p>
+        <button onclick="closePopup()">Gửi câu trả lời cho ảnh...</button>
     </div>
 
     <div class="content" id="main-content">
@@ -62,7 +54,7 @@
         <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
            Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
         
-        <button class="confess-btn" onclick="showConfession()">BẤM VÀO ĐÂY</button>
+        <button class="confess-btn" onclick="showConfession()">BẤM NẾU BẠN ĐÃ SẴN SÀNG</button>
     </div>
 
     <audio id="myAudio"><source src="nhac.mp4.m4a" type="audio/mp4"></audio>
@@ -74,14 +66,23 @@
             setTimeout(() => { 
                 document.getElementById("overlay").style.display = "none";
                 document.getElementById("main-content").style.opacity = "1";
-                document.body.style.overflow = "auto";
             }, 1000);
         }
+
+        // Hiện tin nhắn tự chế
         function showConfession() {
-            alert("Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. Có thể lại làm cô ta của ảnh được không?");
+            document.getElementById("popup-blur").style.display = "block";
+            document.getElementById("custom-popup").style.display = "block";
+        }
+
+        // Đóng tin nhắn
+        function closePopup() {
+            document.getElementById("popup-blur").style.display = "none";
+            document.getElementById("custom-popup").style.display = "none";
         }
     </script>
 </body>
 </html>
+
 
 
