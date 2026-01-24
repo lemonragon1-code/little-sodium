@@ -7,49 +7,64 @@
     <style>
         body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Times New Roman', serif; margin: 0; overflow: hidden; }
         
-        /* MÀN HÌNH CHỜ: Chỉ có chữ, không có khung viền thô */
+        /* MÀN HÌNH CHỜ: ĐÃ PHÓNG TO CHỮ */
         #overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #1a1a1a; display: flex; justify-content: center; align-items: center; 
-            z-index: 1000; transition: opacity 1.5s ease;
+            z-index: 1000; transition: opacity 1.2s ease;
         }
         
         #start-btn { 
             background: none; border: none; color: #d4af37;
-            font-size: 1rem; letter-spacing: 6px; cursor: pointer;
-            text-transform: uppercase; transition: 0.5s;
+            font-size: 2rem; /* Tăng từ 1rem lên 2rem - To gấp đôi */
+            letter-spacing: 10px; /* Giãn chữ rộng hơn cho sang */
+            cursor: pointer;
+            text-transform: uppercase; 
+            transition: 0.5s;
+            font-weight: lighter;
+            animation: pulse 2s infinite; /* Hiệu ứng nhịp thở cho chữ */
         }
         
-        #start-btn:hover { letter-spacing: 10px; opacity: 0.7; }
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(0.98); }
+        }
         
-        /* NỘI DUNG: Hiện lên nhẹ nhàng */
-        .content { opacity: 0; transition: 3s; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { font-weight: lighter; letter-spacing: 6px; color: #d4af37; font-size: 1.5rem; margin-bottom: 40px; }
+        #start-btn:hover { letter-spacing: 15px; opacity: 0.8; }
         
-        img { width: 100%; max-width: 500px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.8); margin-bottom: 30px; }
-        
-        p { font-style: italic; line-height: 2.2; font-size: 1.1rem; color: #bbb; max-width: 550px; margin: 0 auto; }
+        /* NỘI DUNG */
+        .content { opacity: 0; transition: 2.5s; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        h1 { font-weight: lighter; letter-spacing: 6px; color: #d4af37; font-size: 1.6rem; margin-bottom: 40px; }
+        img { width: 100%; max-width: 500px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.8); margin-bottom: 30px; border: 0.5px solid rgba(212, 175, 55, 0.3); }
+        p { font-style: italic; line-height: 2.2; font-size: 1.15rem; color: #bbb; max-width: 550px; margin: 0 auto; }
 
-        /* NÚT BẤM TỎ TÌNH: Tinh tế theo kiểu tối giản */
         .confess-btn { 
-            margin-top: 60px; padding: 10px 20px; 
-            background: none; border: 1px solid rgba(212, 175, 55, 0.3); 
-            color: #d4af37; cursor: pointer; font-size: 0.8rem; letter-spacing: 2px;
+            margin-top: 60px; padding: 12px 25px; 
+            background: none; border: 1px solid rgba(212, 175, 55, 0.4); 
+            color: #d4af37; cursor: pointer; font-size: 0.9rem; letter-spacing: 2px;
         }
         .confess-btn:hover { background: #d4af37; color: #1a1a1a; }
 
-        /* KHUNG TIN NHẮN TỰ CHẾ (Thay thế Alert hệ thống) */
+        /* KHUNG TIN NHẮN (POP-UP) */
         #custom-popup {
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 85%; max-width: 350px; background: #222;
+            width: 85%; max-width: 380px; background: rgba(30, 30, 30, 0.98);
             border: 1px solid #d4af37; padding: 40px 20px; z-index: 2000;
+            backdrop-filter: blur(10px);
         }
-        #custom-popup p { color: #fff; font-size: 1rem; margin-bottom: 30px; font-style: normal; }
+        #custom-popup p { color: #fff; font-size: 1.1rem; margin-bottom: 30px; font-style: normal; line-height: 1.8; }
         #custom-popup button {
             background: none; border: 1px solid #d4af37; color: #d4af37;
-            padding: 8px 20px; cursor: pointer; font-size: 0.8rem;
+            padding: 10px 25px; cursor: pointer; font-size: 0.85rem;
         }
-        #popup-blur { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1500; }
+        #popup-blur { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1500; }
+
+        /* Tối ưu riêng cho điện thoại */
+        @media (max-width: 600px) {
+            #start-btn { font-size: 1.4rem; letter-spacing: 6px; }
+            h1 { font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body>
@@ -77,12 +92,14 @@
 
     <script>
         function startEverything() {
-            document.getElementById("myAudio").play();
+            var audio = document.getElementById("myAudio");
+            audio.play().catch(e => console.log("Nhạc cần tương tác người dùng"));
             document.getElementById("overlay").style.opacity = "0";
             setTimeout(() => { 
                 document.getElementById("overlay").style.display = "none";
                 document.getElementById("main-content").style.opacity = "1";
-            }, 1500);
+                document.body.style.overflow = "auto";
+            }, 1200);
         }
 
         function showConfession() {
