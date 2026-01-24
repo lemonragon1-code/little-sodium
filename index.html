@@ -7,7 +7,7 @@
     <style>
         body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Times New Roman', serif; margin: 0; overflow: hidden; }
         
-        /* MÀN HÌNH CHỜ: CHỮ SIÊU TO KHỔ LỜ */
+        /* MÀN HÌNH CHỜ: CHỮ CỰC ĐẠI */
         #overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #1a1a1a; display: flex; justify-content: center; align-items: center; 
@@ -16,58 +16,46 @@
         
         #start-btn { 
             background: none; border: none; color: #d4af37;
-            /* Phóng to kịch kim để không bị nhỏ nữa */
-            font-size: 5rem; 
-            letter-spacing: 15px; 
-            cursor: pointer;
-            text-transform: uppercase; 
-            transition: 0.5s;
-            font-weight: bold;
+            font-size: 5.5rem; /* Siêu to kịch khung */
+            letter-spacing: 15px; cursor: pointer;
+            text-transform: uppercase; font-weight: bold;
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
             0% { opacity: 0.4; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); }
+            50% { opacity: 1; transform: scale(1.05); }
             100% { opacity: 0.4; transform: scale(0.9); }
         }
-        
-        #start-btn:hover { letter-spacing: 25px; color: #fff; }
         
         /* NỘI DUNG CHÍNH */
         .content { opacity: 0; transition: 2.5s; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         
-        /* ĐỔI TIÊU ĐỀ THÀNH HI ! */
-        h1 { font-weight: lighter; letter-spacing: 10px; color: #d4af37; font-size: 3rem; margin-bottom: 40px; }
+        /* TIÊU ĐỀ HI ! */
+        h1 { font-weight: lighter; letter-spacing: 12px; color: #d4af37; font-size: 4rem; margin-top: 50px; margin-bottom: 30px; }
         
         img { width: 100%; max-width: 500px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.8); margin-bottom: 30px; border: 0.5px solid rgba(212, 175, 55, 0.3); }
-        p { font-style: italic; line-height: 2.2; font-size: 1.15rem; color: #bbb; max-width: 550px; margin: 0 auto; }
+        p { font-style: italic; line-height: 2.2; font-size: 1.2rem; color: #bbb; max-width: 550px; margin: 0 auto; }
 
         .confess-btn { 
-            margin-top: 60px; padding: 12px 25px; 
-            background: none; border: 1px solid rgba(212, 175, 55, 0.4); 
-            color: #d4af37; cursor: pointer; font-size: 0.9rem; letter-spacing: 2px;
+            margin-top: 60px; padding: 12px 25px; background: none; 
+            border: 1px solid rgba(212, 175, 55, 0.4); color: #d4af37; 
+            cursor: pointer; font-size: 1rem; letter-spacing: 2px;
         }
-        .confess-btn:hover { background: #d4af37; color: #1a1a1a; }
 
         /* POP-UP TIN NHẮN */
         #custom-popup {
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 85%; max-width: 380px; background: rgba(30, 30, 30, 0.98);
             border: 1px solid #d4af37; padding: 40px 20px; z-index: 2000;
-            backdrop-filter: blur(10px);
         }
-        #custom-popup p { color: #fff; font-size: 1.1rem; margin-bottom: 30px; font-style: normal; line-height: 1.8; }
-        #custom-popup button {
-            background: none; border: 1px solid #d4af37; color: #d4af37;
-            padding: 10px 25px; cursor: pointer; font-size: 0.85rem;
-        }
+        #custom-popup p { color: #fff; font-size: 1.1rem; margin-bottom: 30px; font-style: normal; }
+        #custom-popup button { background: none; border: 1px solid #d4af37; color: #d4af37; padding: 10px 25px; cursor: pointer; }
         #popup-blur { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1500; }
 
-        /* ĐIỀU CHỈNH CHO MOBILE */
         @media (max-width: 600px) {
-            #start-btn { font-size: 2.5rem; letter-spacing: 10px; }
-            h1 { font-size: 2rem; }
+            #start-btn { font-size: 2.2rem; letter-spacing: 8px; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -84,8 +72,7 @@
     </div>
 
     <div class="content" id="main-content">
-        <h1>HI !</h1>
-        <img src="trường phái ấn tượng. jpg.png" alt="Hoàng hôn">
+        <h1>HI !</h1> <img src="trường phái ấn tượng. jpg.png" alt="Hoàng hôn">
         <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
            Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
         
@@ -96,8 +83,7 @@
 
     <script>
         function startEverything() {
-            var audio = document.getElementById("myAudio");
-            audio.play().catch(e => console.log("Cần tương tác"));
+            document.getElementById("myAudio").play();
             document.getElementById("overlay").style.opacity = "0";
             setTimeout(() => { 
                 document.getElementById("overlay").style.display = "none";
@@ -105,12 +91,10 @@
                 document.body.style.overflow = "auto";
             }, 1200);
         }
-
         function showConfession() {
             document.getElementById("popup-blur").style.display = "block";
             document.getElementById("custom-popup").style.display = "block";
         }
-
         function closePopup() {
             document.getElementById("popup-blur").style.display = "none";
             document.getElementById("custom-popup").style.display = "none";
@@ -118,3 +102,4 @@
     </script>
 </body>
 </html>
+
