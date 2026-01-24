@@ -7,7 +7,7 @@
     <style>
         body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Times New Roman', serif; margin: 0; overflow: hidden; }
         
-        /* MÀN HÌNH CHỜ: ĐÃ PHÓNG TO CHỮ */
+        /* MÀN HÌNH CHỜ: CHỮ SIÊU LỚN */
         #overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #1a1a1a; display: flex; justify-content: center; align-items: center; 
@@ -16,24 +16,25 @@
         
         #start-btn { 
             background: none; border: none; color: #d4af37;
-            font-size: 2rem; /* Tăng từ 1rem lên 2rem - To gấp đôi */
-            letter-spacing: 10px; /* Giãn chữ rộng hơn cho sang */
+            /* Phóng to thêm 50% (Từ 2rem lên 3.5rem) */
+            font-size: 3.5rem; 
+            letter-spacing: 12px; 
             cursor: pointer;
             text-transform: uppercase; 
             transition: 0.5s;
             font-weight: lighter;
-            animation: pulse 2s infinite; /* Hiệu ứng nhịp thở cho chữ */
+            animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
-            0% { opacity: 0.5; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.5; transform: scale(0.98); }
+            0% { opacity: 0.4; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.4; transform: scale(0.95); }
         }
         
-        #start-btn:hover { letter-spacing: 15px; opacity: 0.8; }
+        #start-btn:hover { letter-spacing: 18px; opacity: 0.8; color: #fff; }
         
-        /* NỘI DUNG */
+        /* NỘI DUNG CHÍNH */
         .content { opacity: 0; transition: 2.5s; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         h1 { font-weight: lighter; letter-spacing: 6px; color: #d4af37; font-size: 1.6rem; margin-bottom: 40px; }
         img { width: 100%; max-width: 500px; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.8); margin-bottom: 30px; border: 0.5px solid rgba(212, 175, 55, 0.3); }
@@ -46,7 +47,7 @@
         }
         .confess-btn:hover { background: #d4af37; color: #1a1a1a; }
 
-        /* KHUNG TIN NHẮN (POP-UP) */
+        /* POP-UP TIN NHẮN ĐẶC BIỆT */
         #custom-popup {
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 85%; max-width: 380px; background: rgba(30, 30, 30, 0.98);
@@ -60,9 +61,9 @@
         }
         #popup-blur { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1500; }
 
-        /* Tối ưu riêng cho điện thoại */
+        /* ĐIỀU CHỈNH CHO MOBILE */
         @media (max-width: 600px) {
-            #start-btn { font-size: 1.4rem; letter-spacing: 6px; }
+            #start-btn { font-size: 1.8rem; letter-spacing: 8px; } /* Mobile vẫn phải to rõ */
             h1 { font-size: 1.3rem; }
         }
     </style>
@@ -93,7 +94,7 @@
     <script>
         function startEverything() {
             var audio = document.getElementById("myAudio");
-            audio.play().catch(e => console.log("Nhạc cần tương tác người dùng"));
+            audio.play().catch(e => console.log("Yêu cầu tương tác"));
             document.getElementById("overlay").style.opacity = "0";
             setTimeout(() => { 
                 document.getElementById("overlay").style.display = "none";
