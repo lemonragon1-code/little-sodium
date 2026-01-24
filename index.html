@@ -2,30 +2,61 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gửi cậu...</title>
     <style>
-        body { background-color: #1a1a1a; color: white; text-align: center; font-family: Arial, sans-serif; margin: 0; overflow: hidden; }
+        body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; overflow-x: hidden; }
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: 0.8s; }
-        button#start-btn { padding: 15px 35px; font-size: 1.1em; background-color: #ff4d4d; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); }
-        .content { opacity: 0; transition: 1.5s; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { margin-top: 50px; font-size: 2em; }
-        img { width: 90%; max-width: 500px; border: 3px solid #d4af37; border-radius: 15px; margin-top: 20px; display: block; }
-        p { font-style: italic; line-height: 1.8; margin-top: 25px; font-size: 1.1em; color: #f0f0f0; max-width: 600px; }
-        .confess-btn { margin-top: 30px; padding: 10px 25px; background: none; border: 2px solid #d4af37; color: #d4af37; border-radius: 5px; cursor: pointer; font-size: 1em; transition: 0.3s; }
-        .confess-btn:hover { background: #d4af37; color: #1a1a1a; }
+        button#start-btn { padding: 18px 40px; font-size: 1.2em; background-color: #ff4d4d; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); transition: transform 0.2s; }
+        button#start-btn:active { transform: scale(0.95); }
+        
+        .content { opacity: 0; transition: 2s; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        h1 { margin-top: 40px; font-size: 2.2em; color: #d4af37; }
+        img { width: 95%; max-width: 500px; border: 3px solid #d4af37; border-radius: 15px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        
+        /* Chữ tự động điều chỉnh linh hoạt */
+        p { 
+            font-style: italic; 
+            line-height: 1.8; 
+            margin-top: 30px; 
+            font-size: 1.25rem; 
+            color: #f0f0f0; 
+            max-width: 700px; 
+            padding: 0 15px;
+        }
+
+        .confess-btn { 
+            margin: 40px 0 60px; 
+            padding: 12px 30px; 
+            background: none; 
+            border: 2px solid #d4af37; 
+            color: #d4af37; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            transition: all 0.3s; 
+        }
+        .confess-btn:hover { background: #d4af37; color: #1a1a1a; box-shadow: 0 0 15px #d4af37; }
+
+        /* Tinh chỉnh riêng cho di động để chữ không bị nhỏ */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.7em; }
+            p { font-size: 1.2em; line-height: 1.6; }
+            .confess-btn { width: 80%; padding: 15px; }
+        }
     </style>
 </head>
 <body>
-
     <div id="overlay">
-        <p style="margin-bottom: 20px;">Tớ có một thứ dành cho cậu...</p>
+        <p style="margin-bottom: 25px; font-size: 1.1em;">Tớ có một thứ dành cho cậu...</p>
         <button id="start-btn" onclick="startEverything()">Mở món quà 🎁</button>
     </div>
 
     <div class="content" id="main-content">
         <h1>Khoảnh khắc từ ban công...</h1>
         <img src="trường phái ấn tượng. jpg.png" alt="Hoàng hôn">
-        <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
+        <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br><br>
            Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
         
         <button class="confess-btn" onclick="showConfession()">Bấm vào đây</button>
@@ -38,9 +69,9 @@
     <script>
         function startEverything() {
             var audio = document.getElementById("myAudio");
-            audio.play().catch(function(e) { console.log("Lỗi nhạc:", e) });
+            audio.play().catch(e => console.log("Lỗi nhạc:", e));
             document.getElementById("overlay").style.opacity = "0";
-            setTimeout(function(){ 
+            setTimeout(() => { 
                 document.getElementById("overlay").style.display = "none";
                 document.getElementById("main-content").style.opacity = "1";
                 document.body.style.overflow = "auto";
@@ -53,4 +84,3 @@
     </script>
 </body>
 </html>
-
