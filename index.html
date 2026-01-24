@@ -10,6 +10,23 @@
         .content { opacity: 0; transition: 1.5s; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         img { width: 90%; max-width: 500px; border: 3px solid #d4af37; border-radius: 15px; margin-top: 20px; display: block; }
         p { font-style: italic; line-height: 1.8; margin-top: 25px; font-size: 1.1em; color: #f0f0f0; max-width: 600px; }
+        
+        /* Nút bấm mới cho lời tỏ tình */
+        .confess-btn {
+            margin-top: 30px;
+            padding: 10px 25px;
+            background: none;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        .confess-btn:hover {
+            background: #d4af37;
+            color: #1a1a1a;
+        }
     </style>
 </head>
 <body>
@@ -24,9 +41,11 @@
         <img src="trường phái ấn tượng. jpg.png" alt="Hoàng hôn">
         <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
            Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
+        
+        <button class="confess-btn" onclick="showConfession()">Bấm vào đây</button>
     </div>
 
-    <audio id="myAudio" loop>
+    <audio id="myAudio">
         <source src="nhac.mp4.m4a" type="audio/mp4">
     </audio>
 
@@ -41,6 +60,10 @@
                 document.getElementById("main-content").style.opacity = "1";
                 document.body.style.overflow = "auto";
             }, 800);
+        }
+
+        function showConfession() {
+            alert("Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. Có thể lại làm cô ta của ảnh được không?");
         }
     </script>
 </body>
