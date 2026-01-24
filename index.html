@@ -4,35 +4,50 @@
     <meta charset="UTF-8">
     <title>Gửi cậu...</title>
     <style>
-        body { background-color: #1a1a1a; color: white; text-align: center; font-family: Arial, sans-serif; margin: 0; overflow: hidden; }
+        body { background-color: #1a1a1a; color: white; text-align: center; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; overflow: hidden; }
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: 0.8s; }
-        button#start-btn { padding: 15px 35px; font-size: 1.1em; background-color: #ff4d4d; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); }
-        .content { opacity: 0; transition: 1.5s; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        img { width: 90%; max-width: 500px; border: 3px solid #d4af37; border-radius: 15px; margin-top: 20px; display: block; }
-        p { font-style: italic; line-height: 1.8; margin-top: 25px; font-size: 1.1em; color: #f0f0f0; max-width: 600px; }
+        button#start-btn { padding: 15px 35px; font-size: 1.1em; background-color: #ff4d4d; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); z-index: 101; }
         
-        /* Nút bấm mới cho lời tỏ tình */
+        .content { opacity: 0; transition: 2s; padding: 20px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
+        img { width: 90%; max-width: 500px; border: 3px solid #d4af37; border-radius: 15px; margin-top: 20px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
+        p { font-style: italic; line-height: 1.8; margin-top: 25px; font-size: 1.1em; color: #f0f0f0; max-width: 600px; }
+
+        /* Nút bấm tinh tế hơn */
         .confess-btn {
             margin-top: 30px;
-            padding: 10px 25px;
-            background: none;
-            border: 2px solid #d4af37;
+            padding: 12px 30px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
             color: #d4af37;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 1em;
-            transition: 0.3s;
+            transition: 0.5s;
+            letter-spacing: 1px;
         }
-        .confess-btn:hover {
-            background: #d4af37;
-            color: #1a1a1a;
+        .confess-btn:hover { background: #d4af37; color: #1a1a1a; box-shadow: 0 0 15px #d4af37; }
+
+        /* Hộp thoại lời nhắn đặc biệt */
+        #message-modal {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 30, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #d4af37;
+            z-index: 1000;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; }
     </style>
 </head>
 <body>
 
     <div id="overlay">
-        <p style="margin-bottom: 20px;">Tớ có một thứ dành cho cậu...</p>
         <button id="start-btn" onclick="startEverything()">Mở món quà 🎁</button>
     </div>
 
@@ -42,30 +57,39 @@
         <p>"Hoàng hôn hôm nay rất đẹp, giống như những ký ức mà mình từng có. <br>
            Tớ đã vẽ lại nó theo phong cách Ấn tượng, vì những gì đẹp nhất thường chỉ còn lại là những ấn tượng khó phai..."</p>
         
-        <button class="confess-btn" onclick="showConfession()">Bấm vào đây</button>
+        <button class="confess-btn" onclick="openModal()">Nhấn vào đây nếu cậu sẵn sàng...</button>
+    </div>
+
+    <div class="modal-overlay" id="modal-bg" onclick="closeModal()"></div>
+    <div id="message-modal">
+        <p style="color: #d4af37; font-size: 1.2em; margin-bottom: 20px;">Gửi cậu,</p>
+        <p style="color: white; font-style: normal;">"Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. Có thể lại làm cô ta của ảnh được không?"</p>
+        <button onclick="closeModal()" style="margin-top: 20px; background: none; border: none; color: #888; cursor: pointer;">Đóng lại</button>
     </div>
 
     <audio id="myAudio">
         <source src="nhac.mp4.m4a" type="audio/mp4">
     </audio>
 
- <script>
+    <script>
         function startEverything() {
-            var audio = document.getElementById("myAudio");
-            audio.play().catch(function(e) { console.log("Lỗi nhạc:", e) });
-            
+            document.getElementById("myAudio").play();
             document.getElementById("overlay").style.opacity = "0";
-            setTimeout(function(){ 
+            setTimeout(() => {
                 document.getElementById("overlay").style.display = "none";
                 document.getElementById("main-content").style.opacity = "1";
-                document.body.style.overflow = "auto";
             }, 800);
         }
 
-        function showConfession() {
-            alert("Trong bài hát, anh ta đã có cô ta, pháo hoa và đóa hoa. Có thể lại làm cô ta của ảnh được không?");
+        function openModal() {
+            document.getElementById("modal-bg").style.display = "block";
+            document.getElementById("message-modal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("modal-bg").style.display = "none";
+            document.getElementById("message-modal").style.display = "none";
         }
     </script>
 </body>
 </html>
-
