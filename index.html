@@ -18,118 +18,89 @@
             background: var(--dark-bg); color: #eee;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; overflow-x: hidden;
-            /* Hiệu ứng bụi sao lấp lánh */
             background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
             background-size: 30px 30px;
         }
 
-        /* Hiệu ứng Mèo Na lấp ló - Thêm đổ bóng sáng để nổi bật trên nền tối */
         .cat-peek {
             position: fixed; bottom: -10px; right: -10px;
             width: 80px; z-index: 100;
             transition: 0.5s; cursor: pointer;
             filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
         }
-        .cat-peek:hover { transform: translate(-20px, -20px) rotate(-10deg); }
 
-        /* Trình phát nhạc Mason Nguyễn */
         .music-player {
             position: fixed; top: 15px; right: 15px;
-            z-index: 1000; display: flex; align-items: center;
-            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000; display: none; 
+            align-items: center; background: rgba(0, 0, 0, 0.6);
             padding: 8px 15px; border-radius: 30px; 
-            border: 1px solid var(--neon-pink);
-            backdrop-filter: blur(5px);
+            border: 1px solid var(--neon-pink); backdrop-filter: blur(5px);
         }
         #muteBtn { background: none; border: none; font-size: 20px; cursor: pointer; color: white; }
 
         .container {
             width: 90%; max-width: 400px; text-align: center;
-            margin-top: 60px; padding: 20px;
-            z-index: 10;
+            margin-top: 60px; padding: 20px; z-index: 10;
         }
 
         .main-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            padding: 35px; 
+            background: var(--glass); backdrop-filter: blur(15px);
+            border-radius: 30px; padding: 35px; 
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h1 { font-family: 'Quicksand', sans-serif; color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 77, 141, 0.3); }
 
-        /* Ô nhập Code Lì Xì */
-        .code-section { margin-top: 25px; }
         input {
             width: 85%; padding: 15px; border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.05);
-            color: white; text-align: center; font-size: 18px;
-            outline: none; transition: 0.3s;
+            color: white; text-align: center; font-size: 18px; outline: none;
         }
-        input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 77, 141, 0.2); }
         
         .unlock-btn {
             margin-top: 20px; background: var(--neon-pink);
             color: white; border: none; padding: 12px 35px;
             border-radius: 50px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 141, 0.4);
-            transition: 0.3s;
         }
-        .unlock-btn:active { transform: scale(0.95); }
 
-        /* Nội dung ẩn khi mở khóa */
         #secret-room { display: none; margin-top: 20px; animation: slideUp 0.8s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .pun-text { 
-            font-family: 'Pacifico', cursive; 
-            color: var(--gold); 
-            font-size: 1.6rem; 
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        hr { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 25px 0; }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 24px; }
-            .container { margin-top: 40px; }
-        }
+        .pun-text { font-family: 'Pacifico', cursive; color: var(--gold); font-size: 1.6rem; }
     </style>
 </head>
 <body>
 
-    <img src="lixi2.png" 
-        class="cat-peek" alt="Cute Cat" onclick="alert('Meo! không ngờ m lại click vào đây +). nhấn f12 đi')">
-         
+    <img src="lixi2.png" class="cat-peek" onclick="alert('Meo! Không ngờ Như lại click vào đây. Thử nhấn F12 xem có gì bí mật không?')">
 
-    <div class="music-player">
+    <div class="music-player" id="playerUi">
         <span style="font-size: 12px; margin-right: 8px; color: #ff4d8d; font-weight: bold;">Mason Nguyen 🎵</span>
-        <button id="muteBtn">🔊</button>
-        <audio id="bgMusic" loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
+        <button id="muteBtn" onclick="toggleMusic()">🔊</button>
     </div>
+
+    <audio id="bgMusic">
+        <source src="mansonnguyennnnn.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="container">
         <div class="main-card">
-            <h1>🧧 Mission: xin code từ người gửi đi +)))</h1>
-            <p style="color: #bbb;">e hèm. đi xin đi +). ko là không xem được đâu ( tự đoán cũng được). gợi ý là : ngyaf mà thư tuyệt vời nhát trên đời xuất hiện</p>
+            <h1>🧧 Mission: Tìm Code</h1>
+            <p style="color: #bbb;">Gợi ý: Ngày mà thứ tuyệt vời nhất trên đời xuất hiện +)))</p>
             
             <div class="code-section">
-                <input type="text" id="passInput" placeholder="Ngày mình quen nhau?">
+                <input type="text" id="passInput" placeholder="Nhập mã vào đây...">
                 <br>
                 <button class="unlock-btn" onclick="checkCode()">Mở Khóa Bí Mật</button>
             </div>
 
             <div id="secret-room">
-                <hr>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
                 <h2 style="color: #ffffff;">✨ CHÚC MỪNG NĂM MỚI ✨</h2>
                 <p class="pun-text">"Vạn sự NHƯ ý, còn ý của Quân là Em."</p>
                 <p style="color: #bbb; line-height: 1.6;">Năm nay không chỉ có lì xì, mà còn có cả sự chân thành của Quân gửi đến Như. Chúc Như và Boss Mèo một năm Bính Ngọ thật rực rỡ!</p>
-                <img src="lixi2.png"  width="100%" style="border-radius: 15px; margin-top: 15px;">
+                <img src="lixi2.png" width="100%" style="border-radius: 15px; margin-top: 15px; border: 1px solid var(--neon-pink);">
             </div>
         </div>
     </div>
@@ -137,44 +108,37 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
         const SECRET_CODE = "25/4/2012"; 
-
         const music = document.getElementById('bgMusic');
-        const muteBtn = document.getElementById('muteBtn');
-        let isPlaying = false;
-
-        muteBtn.addEventListener('click', () => {
-            if (!isPlaying) {
-                music.play();
-                muteBtn.innerText = "🔊";
-                isPlaying = true;
-            } else {
-                music.pause();
-                muteBtn.innerText = "🔇";
-                isPlaying = false;
-            }
-        });
 
         function checkCode() {
             const input = document.getElementById('passInput').value.trim();
             if (input === SECRET_CODE) {
                 document.getElementById('secret-room').style.display = 'block';
                 document.querySelector('.code-section').style.display = 'none';
+                document.getElementById('playerUi').style.display = 'flex';
+                
+                // PHÁT NHẠC NGAY LẬP TỨC
+                music.play().catch(e => console.log("Cần click để phát nhạc"));
+                
                 fireworks();
             } else {
-                alert("Mã này không đúng rồi Boss Na ơi! Xem kỹ lại bao lì xì hoặc nhớ lại ngày kỉ niệm xem nào... 🌸");
+                alert("Mã này không đúng rồi. có phải Như không đấy! +)?");
             }
+        }
+
+        function toggleMusic() {
+            if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; }
+            else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; }
         }
 
         function fireworks() {
             var end = Date.now() + (4 * 1000);
             (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d8d', '#ffd700', '#ffffff'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d8d', '#ffd700', '#ffffff'] });
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d8d', '#ffd700'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d8d', '#ffd700'] });
                 if (Date.now() < end) { requestAnimationFrame(frame); }
             }());
         }
     </script>
 </body>
 </html>
-
-
