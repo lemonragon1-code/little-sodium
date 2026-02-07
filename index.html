@@ -142,25 +142,25 @@
                 // PHÁT NHẠC
                 music.play().catch(e => console.log("Cần tương tác để phát nhạc"));
                 
-                fireworks();
-            } else {
-                alert("code sai rồi Như ơi. có phải m thật không đấy +))");
-            }
-        }
+                // HIỆU ỨNG PHÁO BÔNG NỔ GIỮA (NHẸ MÁY)
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }, // Nổ ngay giữa màn hình
+            colors: ['#ff0000', '#ffd700', '#ffffff'],
+            zIndex: 999
+        });
+            }); // Đây là dấu đóng của confetti
+    } else {
+        alert("code sai rồi Như ơi, có phải m thật không đấy =))");
+    }
 
         function toggleMusic() {
             if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; }
             else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; }
         }
 
-        function fireworks() {
-            var end = Date.now() + (4 * 1000);
-            (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d8d', '#ffd700'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d8d', '#ffd700'] });
-                if (Date.now() < end) { requestAnimationFrame(frame); }
-            }());
-        }
+       
     </script>
 </body>
     <div style="display: none;">
@@ -187,6 +187,7 @@
   <p>goodnight. from quân</p>
 </div>
 </html>
+
 
 
 
