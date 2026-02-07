@@ -76,15 +76,20 @@
             .cat-peek { width: 90px; }
             .main-card { padding: 40px; }
     .main-card {
-    background: var(--glass) !important; /* Dùng màu kính mờ ông đã tạo ở dòng 13 */
-    backdrop-filter: blur(15px);        /* Hiệu ứng mờ ảo quyết định */
+    background: var(--glass) !important;
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    border: 1px solid rgba(255, 0, 0, 0.3);
-box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.6),            /* Bóng đổ thật đậm bên dưới */
-    0 0 20px rgba(139, 0, 0, 0.4),             /* Hào quang đỏ (vibe Điêu Toa) */
-    inset 0 0 15px rgba(255, 255, 255, 0.1);    /* Độ dày cho lớp kính */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* BO TRÒN TRỞ LẠI */
+    border-radius: 40px !important; 
+    
+    /* ĐỔ BÓNG TỰ NHIÊN HƠN */
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(139, 0, 0, 0.3);
+        
+    padding: 40px;
     transition: all 0.4s ease;
 }
             </style>
@@ -182,6 +187,7 @@ box-shadow:
   <p>goodnight. from quân</p>
 </div>
 </html>
+
 
 
 
