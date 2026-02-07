@@ -143,18 +143,20 @@
                 // PHÁT NHẠC
                 music.play().catch(e => console.log("Cần tương tác để phát nhạc"));
                 
-                // HIỆU ỨNG PHÁO BÔNG NỔ GIỮA (NHẸ MÁY)
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 }, // Nổ ngay giữa màn hình
-            colors: ['#ff0000', '#ffd700', '#ffffff'],
-            zIndex: 999
-                });
-    } else {
-        alert("code sai rồi Như ơi, có phải m thật không đấy =))");
-    }
+               // HIỆU ỨNG PHÁO BÔNG RƠI CHILL
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        gravity: 0.5,    // Rơi chậm cực nghệ
+        scalar: 1.2,     // Miếng pháo to dễ nhìn
+        ticks: 300       // Bay lâu hơn
+       });
+ } else {
+    alert("code sai rồi Như ơi, có phải m thật không đấy =))");
  }
+
+ } // <-- Xóa bớt nếu thừa, chỉ cần 1 dấu đóng cho function checkCode
 
         function toggleMusic() {
             if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; }
@@ -188,6 +190,7 @@
   <p>goodnight. from quân</p>
 </div>
 </html>
+
 
 
 
