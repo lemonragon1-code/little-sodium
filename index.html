@@ -3,134 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hi, lại là quân đây</title>
+    <title>Gửi Boss Na & Boss Mèo</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { 
             --dark-bg: #0f0f0f; 
             --neon-pink: #ff4d8d; 
             --gold: #ffd700;
-            --glass: rgba(139, 0, 0, 0.2); /* Đỏ rượu mờ ảo, rất ma mị */
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body {
             margin: 0; font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+            background: var(--dark-bg); color: #eee;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; overflow-x: hidden;
-            touch-action: manipulation;
-        }
-
-        /* Background bụi sao lấp lánh */
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 25px 25px; z-index: -1;
+            background-size: 30px 30px;
         }
 
-        .container {
-            width: 90%; max-width: 450px; margin: 40px auto;
-            padding: 10px; z-index: 10;
-        }
-
-        h1 { font-size: 1.8rem; color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 77, 141, 0.3); }
-
-        input {
-            width: 100%; box-sizing: border-box; padding: 15px; border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.3); color: white; 
-            font-size: 16px; margin-bottom: 15px; outline: none;
-        }
-        
-        .unlock-btn {
-            width: 100%; padding: 15px; background: var(--neon-pink);
-            color: white; border-radius: 50px; font-weight: bold;
-            border: none; cursor: pointer; font-size: 16px;
-            box-shadow: 0 5px 15px rgba(255, 77, 141, 0.4);
+        .cat-peek {
+            position: fixed; bottom: -10px; right: -10px;
+            width: 80px; z-index: 100;
+            transition: 0.5s; cursor: pointer;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
         }
 
         .music-player {
             position: fixed; top: 15px; right: 15px;
-            z-index: 1000; display: none; /* Chỉ hiện sau khi mở khóa */
+            z-index: 1000; display: none; 
             align-items: center; background: rgba(0, 0, 0, 0.6);
             padding: 8px 15px; border-radius: 30px; 
             border: 1px solid var(--neon-pink); backdrop-filter: blur(5px);
         }
         #muteBtn { background: none; border: none; font-size: 20px; cursor: pointer; color: white; }
 
+        .container {
+            width: 90%; max-width: 400px; text-align: center;
+            margin-top: 60px; padding: 20px; z-index: 10;
+        }
+
+        .main-card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            border-radius: 30px; padding: 35px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 { font-family: 'Quicksand', sans-serif; color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 77, 141, 0.3); }
+
+        input {
+            width: 85%; padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white; text-align: center; font-size: 18px; outline: none;
+        }
+        
+        .unlock-btn {
+            margin-top: 20px; background: var(--neon-pink);
+            color: white; border: none; padding: 12px 35px;
+            border-radius: 50px; font-weight: bold; cursor: pointer;
+        }
+
         #secret-room { display: none; margin-top: 20px; animation: slideUp 0.8s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .pun-text { font-family: 'Pacifico', cursive; color: var(--gold); font-size: 1.5rem; margin: 15px 0; }
-
-        /* Mèo lấp ló co giãn */
-        .cat-peek {
-            position: fixed; bottom: 10px; right: 10px;
-            width: 60px; z-index: 100; transition: 0.5s; cursor: pointer;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
-        }
-
-        @media (min-width: 768px) {
-            .container { margin-top: 80px; }
-            h1 { font-size: 2.2rem; }
-            .cat-peek { width: 90px; }
-            .main-card { padding: 40px; }
-    .main-card {
-    background: var(--glass) !important;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* BO TRÒN TRỞ LẠI */
-    border-radius: 40px !important; 
-    
-    /* ĐỔ BÓNG TỰ NHIÊN HƠN */
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(139, 0, 0, 0.3);
-        
-    padding: 40px;
-    transition: all 0.4s ease;
-}
-            </style>
+        .pun-text { font-family: 'Pacifico', cursive; color: var(--gold); font-size: 1.6rem; }
+    </style>
 </head>
 <body>
+
+    <img src="lixi2.png" class="cat-peek" onclick="alert('Meo! Không ngờ Như lại click vào đây. chép linh này đi :https://github.com/lemonragon1-code/little-sodium/tree/main ) vào html và kéo xuống dưới cùng +))')">
+
+    <div class="music-player" id="playerUi">
+        <span style="font-size: 12px; margin-right: 8px; color: #ff4d8d; font-weight: bold;">Mason Nguyen 🎵</span>
+        <button id="muteBtn" onclick="toggleMusic()">🔊</button>
+    </div>
 
     <audio id="bgMusic">
         <source src="mansonnguyennnnn.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="music-player" id="playerUi">
-        <span style="font-size: 11px; margin-right: 8px; color: #ff4d8d; font-weight: bold;">Mason Nguyen 🎵</span>
-        <button id="muteBtn" onclick="toggleMusic()">🔊</button>
-    </div>
-
     <div class="container">
         <div class="main-card">
             <h1>🧧 Mission: Tìm Code</h1>
-            <p style="color: #bbb; font-size: 14px;">Gợi ý: Ngày mà người tuyệt vời nhất trên đời xuất hiện +)))</p>
+            <p style="color: #bbb;">Gợi ý: Ngày mà thứ tuyệt vời nhất trên đời xuất hiện +)))</p>
             
             <div class="code-section">
-                <input type="text" id="passInput" placeholder="há lo">
+                <input type="text" id="passInput" placeholder="Nhập mã vào đây...">
+                <br>
                 <button class="unlock-btn" onclick="checkCode()">Mở Khóa Bí Mật</button>
             </div>
 
             <div id="secret-room">
-                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 25px 0;">
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
                 <h2 style="color: #ffffff;">✨ CHÚC MỪNG NĂM MỚI ✨</h2>
-                <p class="pun-text">halo. nếu chọn giữa gold và silver. thì em chọn gold nhưng mà không A."</p>
-                <p style="color: #bbb; line-height: 1.6; font-size: 15px;">Chúc Quan anh một năm Bính Ngọ thật rực rỡ! Mỗi dòng code này đều là sự chân thành em dành cho anh.</p>
-                <img src="lixi2.png" style="width: 100%; border-radius: 15px; margin-top: 15px; border: 1px solid var(--neon-pink);">
+                <p class="pun-text">"Vạn sự NHƯ ý, còn ý của Quân là Em."</p>
+                <p style="color: #bbb; line-height: 1.6;">Năm nay không chỉ có lì xì, mà còn có cả sự chân thành của Quân gửi đến Như. Chúc Như và Boss Mèo một năm Bính Ngọ thật rực rỡ!</p>
+                <img src="lixi2.png" width="100%" style="border-radius: 15px; margin-top: 15px; border: 1px solid var(--neon-pink);">
             </div>
         </div>
     </div>
 
-    <img src="lixi2.png" class="cat-peek" onclick="alert('Meo! Không ngờ Anh lại click vào đây. không có gì trong này dou =))">
-
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        const SECRET_CODE = "7/9/2011"; 
+        const SECRET_CODE = "25/4/2012"; 
         const music = document.getElementById('bgMusic');
 
         function checkCode() {
@@ -140,49 +117,28 @@
                 document.querySelector('.code-section').style.display = 'none';
                 document.getElementById('playerUi').style.display = 'flex';
                 
-                // PHÁT NHẠC
-                music.play().catch(e => console.log("Cần tương tác để phát nhạc"));
+                // PHÁT NHẠC NGAY LẬP TỨC
+                music.play().catch(e => console.log("Cần click để phát nhạc"));
                 
-               // HIỆU ỨNG PHÁO BÔNG RƠI CHILL
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        gravity: 0.5,    // Rơi chậm cực nghệ
-        scalar: 1.2,     // Miếng pháo to dễ nhìn
-        ticks: 300       // Bay lâu hơn
-       });
- } else {
-    alert("code sai rồi ANh ơi, có phải ANh thật không đấy =))");
- }
-
- } // <-- Xóa bớt nếu thừa, chỉ cần 1 dấu đóng cho function checkCode
+                fireworks();
+            } else {
+                alert("Mã này không đúng rồi. có phải Như không đấy! +)?");
+            }
+        }
 
         function toggleMusic() {
             if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; }
             else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; }
         }
 
-       
+        function fireworks() {
+            var end = Date.now() + (4 * 1000);
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d8d', '#ffd700'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d8d', '#ffd700'] });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
     </script>
 </body>
-</div>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
