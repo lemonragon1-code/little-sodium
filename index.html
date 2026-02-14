@@ -3,142 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gửi Boss Na & Boss Mèo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Hi, lại là quân đây</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --dark-bg: #0f0f0f; 
-            --neon-pink: #ff4d8d; 
-            --gold: #ffd700;
-            --glass: rgba(255, 255, 255, 0.05);
+            --bg: #050a18; /* Xanh thẳm tinh tế */
+            --primary: #0072ff; /* Xanh dương */
+            --secondary: #7000ff; /* Tím hiện đại */
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         body {
             margin: 0; font-family: 'Quicksand', sans-serif;
-            background: var(--dark-bg); color: #eee;
+            background: var(--bg); color: #eee;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; overflow-x: hidden;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background: linear-gradient(45deg, #050a18, #0a1128, #10002b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            touch-action: manipulation;
         }
 
-        .cat-peek {
-            position: fixed; bottom: -10px; right: -10px;
-            width: 80px; z-index: 100;
-            transition: 0.5s; cursor: pointer;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
-        .music-player {
-            position: fixed; top: 15px; right: 15px;
-            z-index: 1000; display: none; 
-            align-items: center; background: rgba(0, 0, 0, 0.6);
-            padding: 8px 15px; border-radius: 30px; 
-            border: 1px solid var(--neon-pink); backdrop-filter: blur(5px);
-        }
-        #muteBtn { background: none; border: none; font-size: 20px; cursor: pointer; color: white; }
 
         .container {
-            width: 90%; max-width: 400px; text-align: center;
-            margin-top: 60px; padding: 20px; z-index: 10;
+            width: 90%; max-width: 420px; margin: 60px auto; z-index: 10;
         }
 
+        /* Hiệu ứng kính mờ (Glassmorphism) cho dân Designer */
         .main-card {
-            background: var(--glass); backdrop-filter: blur(15px);
-            border-radius: 30px; padding: 35px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px; padding: 40px 25px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(112, 0, 255, 0.1);
+            border: 1px solid rgba(112, 0, 255, 0.2);
+            animation: floating 6s ease-in-out infinite;
+            transition: all 0.4s ease;
         }
 
-        h1 { font-family: 'Quicksand', sans-serif; color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 77, 141, 0.3); }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
 
-        input {
-            width: 85%; padding: 15px; border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-            color: white; text-align: center; font-size: 18px; outline: none;
+        h1 { 
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .code-section input {
+            width: 100%; box-sizing: border-box; padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2); color: white;
+            text-align: center; font-size: 16px; outline: none; margin-bottom: 15px;
         }
         
         .unlock-btn {
-            margin-top: 20px; background: var(--neon-pink);
-            color: white; border: none; padding: 12px 35px;
-            border-radius: 50px; font-weight: bold; cursor: pointer;
+            width: 100%; padding: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white; border: none; border-radius: 50px;
+            font-weight: 700; cursor: pointer; letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.3);
         }
 
-        #secret-room { display: none; margin-top: 20px; animation: slideUp 0.8s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Music Player tinh gọn */
+        .music-player {
+            position: fixed; top: 20px; right: 20px; display: none;
+            background: var(--glass); padding: 10px 15px;
+            border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px); z-index: 1000; align-items: center;
+        }
+        #muteBtn { background: none; border: none; color: white; cursor: pointer; font-size: 18px; }
 
-        .pun-text { font-family: 'Pacifico', cursive; color: var(--gold); font-size: 1.6rem; }
+        #secret-room { display: none; margin-top: 25px; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .lixi-img {
+            width: 100%; border-radius: 20px; margin-top: 20px;
+            border: 1px solid rgba(112, 0, 255, 0.3);
+        }
+
+        /* Chi tiết cá nhân hóa ẩn ở góc */
+        .designer-tag {
+            position: fixed; bottom: 15px; left: 15px;
+            font-size: 10px; color: rgba(255,255,255,0.2);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
-
-    <img src="lixi2.png" class="cat-peek" onclick="alert('Meo! Không ngờ Như lại click vào đây. chép linh này đi :https://github.com/lemonragon1-code/little-sodium/tree/main ) vào html và kéo xuống dưới cùng +))')">
-
-    <div class="music-player" id="playerUi">
-        <span style="font-size: 12px; margin-right: 8px; color: #ff4d8d; font-weight: bold;">Mason Nguyen 🎵</span>
-        <button id="muteBtn" onclick="toggleMusic()">🔊</button>
-    </div>
 
     <audio id="bgMusic">
         <source src="mansonnguyennnnn.mp3" type="audio/mpeg">
     </audio>
 
+    <div class="music-player" id="playerUi">
+        <span style="font-size: 11px; margin-right: 8px; color: var(--primary); font-weight: bold;">Mason Nguyen 🎵</span>
+        <button id="muteBtn" onclick="toggleMusic()">🔊</button>
+    </div>
+
     <div class="container">
         <div class="main-card">
             <h1>🧧 Mission: Tìm Code</h1>
-            <p style="color: #bbb;">Gợi ý: Ngày mà thứ tuyệt vời nhất trên đời xuất hiện +)))</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 14px;">Gợi ý: Ngày mà người tuyệt vời nhất trên đời xuất hiện +)))</p>
             
             <div class="code-section">
-                <input type="text" id="passInput" placeholder="Nhập mã vào đây...">
-                <br>
-                <button class="unlock-btn" onclick="checkCode()">Mở Khóa Bí Mật</button>
+                <input type="text" id="passInput" placeholder="Nhập mã bí mật...">
+                <button class="unlock-btn" onclick="checkCode()">GIẢI MÃ</button>
             </div>
 
             <div id="secret-room">
-                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
-                <h2 style="color: #ffffff;">✨ CHÚC MỪNG NĂM MỚI ✨</h2>
-                <p class="pun-text">"Vạn sự NHƯ ý, còn ý của Quân là Em."</p>
-                <p style="color: #bbb; line-height: 1.6;">Năm nay không chỉ có lì xì, mà còn có cả sự chân thành của Quân gửi đến Như. Chúc Như và Boss Mèo một năm Bính Ngọ thật rực rỡ!</p>
-                <img src="lixi2.png" width="100%" style="border-radius: 15px; margin-top: 15px; border: 1px solid var(--neon-pink);">
+                <h2 style="color: white; margin-bottom: 5px;">✨ CHÚC MỪNG NĂM MỚI ✨</h2>
+                <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">"Vạn sự NHƯ ý, còn ý của Quân là Em." [cite: 66]</p>
+                <p style="color: #bbb; line-height: 1.6; font-size: 14px;">Chúc Như và Boss Mèo một năm Bính Ngọ thật rực rỡ! [cite: 67]</p>
+                <img src="lixi2.png" class="lixi-img">
             </div>
         </div>
     </div>
 
+    <div class="designer-tag">Specially crafted for Na // 2026</div>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        const SECRET_CODE = "25/4/2012"; 
+        const SECRET_CODE = "25/4/2012"; [cite: 69]
         const music = document.getElementById('bgMusic');
 
         function checkCode() {
             const input = document.getElementById('passInput').value.trim();
-            if (input === SECRET_CODE) {
+            if (input === SECRET_CODE) { [cite: 70]
                 document.getElementById('secret-room').style.display = 'block';
                 document.querySelector('.code-section').style.display = 'none';
                 document.getElementById('playerUi').style.display = 'flex';
                 
-                // PHÁT NHẠC NGAY LẬP TỨC
-                music.play().catch(e => console.log("Cần click để phát nhạc"));
+                music.play().catch(e => console.log("Cần tương tác để phát nhạc")); [cite: 71]
                 
-                fireworks();
+                // Hiệu ứng pháo hoa tone Xanh - Tím cực chill 
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#0072ff', '#7000ff'],
+                    gravity: 0.5,
+                    scalar: 1.2,
+                    ticks: 300
+                });
             } else {
-                alert("Mã này không đúng rồi. có phải Như không đấy! +)?");
+                alert("Mã sai rồi Như ơi, có phải m thật không đấy =))"); [cite: 73]
             }
         }
 
         function toggleMusic() {
-            if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; }
-            else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; }
-        }
-
-        function fireworks() {
-            var end = Date.now() + (4 * 1000);
-            (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d8d', '#ffd700'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d8d', '#ffd700'] });
-                if (Date.now() < end) { requestAnimationFrame(frame); }
-            }());
+            if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; } [cite: 74]
+            else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; } [cite: 75]
         }
     </script>
+
+    <div style="display: none;">
+        <p>hi, là quân đây. nếu m thấy được dòng này thì m đã vào được ổ code của t... [cite: 76]</p>
+        <p>biết vì sao khi gặp m thì t lại như nước không Na. vì khi gặp NA thì quân sẽ phản ứng mạnh +))). [cite: 85]</p>
+        <p>7/2/2026 ngày hoàn thành những dòng code này bên giai điệu 2 thằng bịp. [cite: 86]</p>
+    </div>
 </body>
 </html>
