@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg: #050a18; /* Xanh thẳm tinh tế */
-            --primary: #0072ff; /* Xanh dương */
-            --secondary: #7000ff; /* Tím hiện đại */
+            --bg: #050a18; 
+            --primary: #0072ff; 
+            --secondary: #7000ff; 
             --glass: rgba(255, 255, 255, 0.03);
         }
 
@@ -30,11 +30,20 @@
             100% { background-position: 0% 50%; }
         }
 
-        .container {
-            width: 90%; max-width: 420px; margin: 60px auto; z-index: 10;
+        /* Lớp nền bụi sao - Đã sửa z-index để không che nút */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 25px 25px; 
+            z-index: -2; /* Đẩy xuống dưới cùng */
         }
 
-        /* Hiệu ứng kính mờ (Glassmorphism) cho dân Designer */
+        .container {
+            position: relative; /* Đảm bảo nổi lên trên lớp nền */
+            z-index: 10;
+            width: 90%; max-width: 420px; margin: 60px auto; 
+        }
+
         .main-card {
             background: var(--glass);
             backdrop-filter: blur(20px);
@@ -43,7 +52,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(112, 0, 255, 0.1);
             border: 1px solid rgba(112, 0, 255, 0.2);
             animation: floating 6s ease-in-out infinite;
-            transition: all 0.4s ease;
+            pointer-events: auto; /* Cho phép nhấn vào nội dung bên trong */
         }
 
         @keyframes floating {
@@ -59,11 +68,12 @@
             margin-bottom: 10px;
         }
 
-        .code-section input {
+        input {
             width: 100%; box-sizing: border-box; padding: 15px; border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(0, 0, 0, 0.2); color: white;
             text-align: center; font-size: 16px; outline: none; margin-bottom: 15px;
+            cursor: text; /* Hiện con trỏ soạn thảo */
         }
         
         .unlock-btn {
@@ -72,9 +82,10 @@
             color: white; border: none; border-radius: 50px;
             font-weight: 700; cursor: pointer; letter-spacing: 1px;
             box-shadow: 0 5px 15px rgba(112, 0, 255, 0.3);
+            position: relative; z-index: 20;
         }
 
-        /* Music Player tinh gọn */
+        /* Các phần còn lại giữ nguyên... */
         .music-player {
             position: fixed; top: 20px; right: 20px; display: none;
             background: var(--glass); padding: 10px 15px;
@@ -82,21 +93,10 @@
             backdrop-filter: blur(10px); z-index: 1000; align-items: center;
         }
         #muteBtn { background: none; border: none; color: white; cursor: pointer; font-size: 18px; }
-
         #secret-room { display: none; margin-top: 25px; animation: fadeIn 1s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .lixi-img {
-            width: 100%; border-radius: 20px; margin-top: 20px;
-            border: 1px solid rgba(112, 0, 255, 0.3);
-        }
-
-        /* Chi tiết cá nhân hóa ẩn ở góc */
-        .designer-tag {
-            position: fixed; bottom: 15px; left: 15px;
-            font-size: 10px; color: rgba(255,255,255,0.2);
-            letter-spacing: 2px; text-transform: uppercase;
-        }
+        .lixi-img { width: 100%; border-radius: 20px; margin-top: 20px; border: 1px solid rgba(112, 0, 255, 0.3); }
+        .designer-tag { position: fixed; bottom: 15px; left: 15px; font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -122,8 +122,8 @@
 
             <div id="secret-room">
                 <h2 style="color: white; margin-bottom: 5px;">✨ CHÚC MỪNG NĂM MỚI ✨</h2>
-                <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">"Vạn sự NHƯ ý, còn ý của Quân là Em." [cite: 66]</p>
-                <p style="color: #bbb; line-height: 1.6; font-size: 14px;">Chúc Như và Boss Mèo một năm Bính Ngọ thật rực rỡ! [cite: 67]</p>
+                <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">"Vạn sự NHƯ ý, còn ý của Quân là Em."</p>
+                <p style="color: #bbb; line-height: 1.6; font-size: 14px;">Chúc Như và Boss Mèo một năm Bính Ngọ thật rực rỡ!</p>
                 <img src="lixi2.png" class="lixi-img">
             </div>
         </div>
@@ -133,43 +133,26 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        const SECRET_CODE = "25/4/2012"; [cite: 69]
+        const SECRET_CODE = "25/4/2012";
         const music = document.getElementById('bgMusic');
 
         function checkCode() {
             const input = document.getElementById('passInput').value.trim();
-            if (input === SECRET_CODE) { [cite: 70]
+            if (input === SECRET_CODE) {
                 document.getElementById('secret-room').style.display = 'block';
                 document.querySelector('.code-section').style.display = 'none';
                 document.getElementById('playerUi').style.display = 'flex';
-                
-                music.play().catch(e => console.log("Cần tương tác để phát nhạc")); [cite: 71]
-                
-                // Hiệu ứng pháo hoa tone Xanh - Tím cực chill 
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#0072ff', '#7000ff'],
-                    gravity: 0.5,
-                    scalar: 1.2,
-                    ticks: 300
-                });
+                music.play().catch(e => console.log("Cần tương tác để phát nhạc"));
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#0072ff', '#7000ff'], gravity: 0.5, scalar: 1.2, ticks: 300 });
             } else {
-                alert("Mã sai rồi Như ơi, có phải m thật không đấy =))"); [cite: 73]
+                alert("Mã sai rồi Như ơi, có phải m thật không đấy =))");
             }
         }
 
         function toggleMusic() {
-            if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; } [cite: 74]
-            else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; } [cite: 75]
+            if (music.paused) { music.play(); document.getElementById('muteBtn').innerText = "🔊"; }
+            else { music.pause(); document.getElementById('muteBtn').innerText = "🔇"; }
         }
     </script>
-
-    <div style="display: none;">
-        <p>hi, là quân đây. nếu m thấy được dòng này thì m đã vào được ổ code của t... [cite: 76]</p>
-        <p>biết vì sao khi gặp m thì t lại như nước không Na. vì khi gặp NA thì quân sẽ phản ứng mạnh +))). [cite: 85]</p>
-        <p>7/2/2026 ngày hoàn thành những dòng code này bên giai điệu 2 thằng bịp. [cite: 86]</p>
-    </div>
 </body>
 </html>
